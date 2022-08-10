@@ -1,0 +1,21 @@
+{
+  "name": "qr-code",
+  "version": "1.0.0",
+  "description": "qr-code",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongodb": "^4.8.1",
+    "mongoose": "^6.5.2",
+    "qr-code-styling": "^1.6.0-rc.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Local URL</th>
+        <th>External URL</th>
+        <th>Visits</th>
+        <th>QR Code</th>
+      </tr>
+      <% for(let i = 0; i < data.length; i++) { %>
+      <tr>
+        <td><%= data[i].id %></td>
+        <td><a href="<%= data[i].local %>"><%= data[i].local %></a></td>
+        <td><a href="<%= data[i].external %>"><%= data[i].external %></a></td>
+        <td><%= data[i].visits %></td>
+        <td><div id="<%= data[i].id %>"></div></td>
+      </tr>
+      <!-- <button>Generate QR Code</button> -->
+      <!-- <div id="canvas"></div> -->
+      <% } %>
+    </table>
+  </body>
+  <script
+    type="text/javascript"
+    src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"
+  ></script>
+  <script type="text/javascript">
+    function getQRCode(local, external) {
+      return new QRCodeStyling({
+        width: 300,
+        height: 300,
+        type: 'svg',
+        data: external,
+        image:
+          'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg',
+        dotsOptions: {
+          color: '#4267b2',
+          type: 'rounded',
+        },
+        backgroundOptions: {
+          color: '#e9ebee',
+        },
+        imageOptions: {
+          crossOrigin: 'anonymous',
+          margin: 20,
+        },
+      });
+    }
+
+    const data = '<%- JSON.stringify(data) %>';
+    const objects = JSON.parse(data);
+
+    for (let i = 0; i < objects.length; i++) {
+      getQRCode(objects[i].local, objects[i].external).append(
+        document.getElementById(objects[i]._id)
+      );
+    }
+
+    //qrCode.append(document.getElementsByClassName('canvas'));
+    //qrCode.download({ name: 'qr', extension: 'svg' });
+  </script>
+</html>
